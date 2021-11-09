@@ -1,0 +1,28 @@
+
+  <div class="input-group">
+    <input type="text" aria-label="package" class="form-control" [value]="package" (input)="package = $event.target.value" required>
+    <input type="text" aria-label="version" class="form-control" [value]="version" (input)="version = $event.target.value" required>
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2" (click)="onSubmit()">Search</button>
+  </div>
+  <p *ngIf=isNoDependenciesFound>No dependencies were found</p>
+  <p *ngIf=isApiError>Something is wrong. Please try again later</p>
+
+<ngx-graph
+  class="chart-container"
+  [view]="[1600, 1900]"
+  [links]=links
+  [nodes]=nodes
+>
+<ng-template #nodeTemplate let-node>
+    <svg:g class="node" ngx-tooltip>
+      <svg:rect
+        [attr.width]="node.dimension.width"
+        [attr.height]="node.dimension.height"
+        [attr.fill]="node.data.color"
+      />
+      <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">
+        {{node.label}}
+      </svg:text>
+    </svg:g>
+  </ng-template>
+</ngx-graph>
